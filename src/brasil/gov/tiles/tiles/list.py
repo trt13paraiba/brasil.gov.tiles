@@ -7,6 +7,7 @@ from collective.cover.interfaces import ICoverUIDsProvider
 from collective.cover.tiles.base import IPersistentCoverTile
 from collective.cover.tiles.base import PersistentCoverTile
 from collective.cover.tiles.configuration_view import IDefaultConfigureForm
+from collective.cover.tiles.list import ListTile as ListTileCover
 from plone.app.uuid.utils import uuidToObject
 from plone.directives import form
 from plone.memoize import view
@@ -67,7 +68,7 @@ class IListTile(IPersistentCoverTile, form.Schema):
     )
 
 
-class ListTile(PersistentCoverTile):
+class ListTile(ListTileCover):
 
     implements(IListTile)
 
@@ -128,20 +129,26 @@ class ListTile(PersistentCoverTile):
 
         data_mgr.set(old_data)
 
-    def replace_with_objects(self, uids):
-        super(ListTile, self).replace_with_objects(uids)  # check permission
-        self.set_limit()
+    def replace_with_objects(self, uuids):
+        """ Replaces the whole list of items with a new list of items
+        :param uuids: The list of objects' UUIDs to be used
+        :type uuids: List of strings
+        """
+        if not self.isAllowedToEdit():
+            raise Unauthorized(
+                _('You are not allowed to add content to this tile'))
         data_mgr = ITileDataManager(self)
         old_data = data_mgr.get()
-        if type(uids) == list:
-            old_data['uuids'] = [i for i in uids][:self.limit]
-        else:
-            old_data['uuids'] = [uids]
-
+        # Clean old data
+        old_data['uuids'] = dict()
         data_mgr.set(old_data)
+        # Repopulate with clean list
+        self.populate_with_uids(uuids)
 
     def remove_item(self, uid):
-        super(ListTile, self).remove_item(uid)
+        import pdb
+        pdb.set_trace()
+        super(ListTileCover, self).remove_item(uid)
         data_mgr = ITileDataManager(self)
         old_data = data_mgr.get()
         uids = data_mgr.get()['uuids']

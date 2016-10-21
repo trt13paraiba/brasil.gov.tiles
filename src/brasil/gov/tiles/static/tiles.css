@@ -1187,6 +1187,36 @@ div[data-tile*="collective.cover.embed"] .samba-player embed {
 #tile_banner_rotativo[data-quantidade="4"] #banner2 .button-nav { right: 40px; }
 #tile_banner_rotativo[data-quantidade="4"] #banner3 .button-nav { right: 20px; }
 
+/* botões de navegação - com 5 itens */
+#tile_banner_rotativo[data-quantidade="5"] #banner1 .button-nav { right: 80px; }
+#tile_banner_rotativo[data-quantidade="5"] #banner2 .button-nav { right: 60px; }
+#tile_banner_rotativo[data-quantidade="5"] #banner3 .button-nav { right: 40px; }
+#tile_banner_rotativo[data-quantidade="5"] #banner4 .button-nav { right: 20px; }
+
+/* botões de navegação - com 6 itens */
+#tile_banner_rotativo[data-quantidade="6"] #banner1 .button-nav { right: 100px; }
+#tile_banner_rotativo[data-quantidade="6"] #banner2 .button-nav { right: 80px; }
+#tile_banner_rotativo[data-quantidade="6"] #banner3 .button-nav { right: 60px; }
+#tile_banner_rotativo[data-quantidade="6"] #banner4 .button-nav { right: 40px; }
+#tile_banner_rotativo[data-quantidade="6"] #banner5 .button-nav { right: 20px; }
+
+/* botões de navegação - com 7 itens */
+#tile_banner_rotativo[data-quantidade="7"] #banner1 .button-nav { right: 120px; }
+#tile_banner_rotativo[data-quantidade="7"] #banner2 .button-nav { right: 100px; }
+#tile_banner_rotativo[data-quantidade="7"] #banner3 .button-nav { right: 80px; }
+#tile_banner_rotativo[data-quantidade="7"] #banner4 .button-nav { right: 60px; }
+#tile_banner_rotativo[data-quantidade="7"] #banner5 .button-nav { right: 40px; }
+#tile_banner_rotativo[data-quantidade="7"] #banner6 .button-nav { right: 20px; }
+
+/* botões de navegação - com 8 itens */
+#tile_banner_rotativo[data-quantidade="8"] #banner1 .button-nav { right: 140px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner2 .button-nav { right: 120px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner3 .button-nav { right: 100px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner4 .button-nav { right: 80px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner5 .button-nav { right: 60px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner6 .button-nav { right: 40px; }
+#tile_banner_rotativo[data-quantidade="8"] #banner7 .button-nav { right: 20px; }
+
 
 /* Tile do Banner Rotativo - Texto sobreposto
    ========================================================================== */

@@ -146,8 +146,6 @@ class ListTile(ListTileCover):
         self.populate_with_uids(uuids)
 
     def remove_item(self, uid):
-        import pdb
-        pdb.set_trace()
         super(ListTileCover, self).remove_item(uid)
         data_mgr = ITileDataManager(self)
         old_data = data_mgr.get()

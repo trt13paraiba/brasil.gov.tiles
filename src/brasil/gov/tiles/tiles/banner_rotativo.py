@@ -148,12 +148,14 @@ class BannerRotativoTile(ListTile):
         return (self.data['layout'] == u'Chamada de foto' or self.data['layout'] == u'Texto sobreposto')
 
     def tile_class(self):
+        classes = 'tile_banner_rotativo'
         if self.layout_banner() == 1:
-            return 'chamada_sem_foto tile-content'
+            classes += ' chamada_sem_foto tile-content'
         elif self.layout_banner() == 2:
-            return 'chamada_com_foto tile-content'
+            classes +=  ' chamada_com_foto tile-content'
         else:
-            return 'chamada_sobrescrito tile-content'
+            classes += ' chamada_sobrescrito tile-content'
+        return classes
 
     def show_nav(self):
         return (len(self.results()) > 1)

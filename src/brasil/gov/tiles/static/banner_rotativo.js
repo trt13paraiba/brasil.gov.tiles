@@ -6,12 +6,12 @@ var portalBrasil = {
   },
   // Tile Banner Rotativo
   corrigeAlturaFaixa: function () {
-    if ($(".template-compose #tile_banner_rotativo").length === 0) {
-      var imgBannerRotativo    = $('#tile_banner_rotativo .activeSlide .banner img'),
-        credito              = $('#tile_banner_rotativo .activeSlide .credito'),
-        botoesBannerRotativo = $('#tile_banner_rotativo .button-nav');
+    if ($(".template-compose .tile_banner_rotativo").length === 0) {
+      var imgBannerRotativo    = $('.tile_banner_rotativo .activeSlide .banner img'),
+        credito              = $('.tile_banner_rotativo .activeSlide .credito'),
+        botoesBannerRotativo = $('.tile_banner_rotativo .button-nav');
 
-      var sobrescrito = $('#tile_banner_rotativo').hasClass('chamada_sobrescrito');
+      var sobrescrito = $('.tile_banner_rotativo').hasClass('chamada_sobrescrito');
       if (sobrescrito) {
         botoesBannerRotativo.css('top',
                                  imgBannerRotativo.height()         -
@@ -27,43 +27,49 @@ var portalBrasil = {
     }
   },
   tileBannerRotativo: function () {
-    if ($('#tile_banner_rotativo').length > 0) {
-      $('#tile_banner_rotativo .button-nav, .orderTiles .button-nav').on('click focus mouseover', function (e) {
+    if ($('.tile_banner_rotativo').length > 0) {
+      var link;
+      $('.tile_banner_rotativo .button-nav, .orderTiles .button-nav').on('click focus mouseover', function (e) {
         e.preventDefault();
-        $("#tile_banner_rotativo li").removeClass('activeSlide');
+        $(this).closest('.tile_banner_rotativo').find('li').removeClass('activeSlide');
         $(this).closest('li').addClass('activeSlide');
         portalBrasil.corrigeAlturaFaixa();
+        link = $(this);
       });
 
-      var updateCarrossel = function () {
-        if (($('#tile_banner_rotativo a:hover').length === 0)   &&
-            ($('#tile_banner_rotativo a:focus').length === 0)   &&
-            ($(".template-compose #tile_banner_rotativo").length === 0)) {
+      var updateCarrossel = function (banners) {
+        $.each(banners, function(index, banner) {
+          banner = $(banner);
+          if ((banner.find('a:hover').length === 0)   &&
+              (banner.find('a:focus').length === 0)   &&
+              ($('.template-compose .tile_banner_rotativo').length === 0)) {
 
-          var totalSlides = $("#tile_banner_rotativo li").length;
+            var totalSlides = banner.find('li').length;
 
-          if (totalSlides > 1) {
-            var activeSlide       = $('#tile_banner_rotativo li.activeSlide'),
-              activeSlideNumber = parseInt(activeSlide.attr('data-slidenumber'), 10),
-              nextSlideNumber   = (activeSlideNumber % totalSlides) + 1,
-              nextSlide         = $('#banner' + nextSlideNumber);
+            if (totalSlides > 1) {
+              var activeSlide     = banner.find('li.activeSlide'),
+                activeSlideNumber = parseInt(activeSlide.attr('data-slidenumber'), 10),
+                nextSlideNumber   = (activeSlideNumber % totalSlides) + 1,
+                nextSlide         = banner.find('.banner' + nextSlideNumber);
 
-            activeSlide.removeClass('activeSlide');
-            nextSlide.addClass('activeSlide');
-            portalBrasil.corrigeAlturaFaixa();
+              activeSlide.removeClass('activeSlide');
+              nextSlide.addClass('activeSlide');
+            }
+
           }
-        }
-        window.setTimeout(updateCarrossel, 4000);
+        });
+        portalBrasil.corrigeAlturaFaixa();
       };
-      window.setTimeout(updateCarrossel, 4000);
-    }
+      banners = $('.tile_banner_rotativo');
+      var INTERVAL = window.setInterval(function() {updateCarrossel(banners);}, 4000);
+    };
   },
   resizeAlturaBannerRotativo: function () {
-    if ($(".template-compose #tile_banner_rotativo").length === 0) {
-      var containerBannerRotativo = $('#tile_banner_rotativo'),
-        itemBannerRotativo = $('#tile_banner_rotativo li');
+    if ($(".template-compose .tile_banner_rotativo").length === 0) {
+      var containerBannerRotativo = $('.tile_banner_rotativo'),
+        itemBannerRotativo = $('.tile_banner_rotativo li');
 
-      var sobrescrito = $('#tile_banner_rotativo').hasClass('chamada_sobrescrito');
+      var sobrescrito = $('.tile_banner_rotativo').hasClass('chamada_sobrescrito');
 
       // ajusta altura de cada item do banner
       var bannerMaior = 0;
@@ -92,7 +98,7 @@ var portalBrasil = {
 
 var portalBrasilCompor = {
   init: function () {
-    if ($('.template-compose #tile_banner_rotativo').length > 0) {
+    if ($('.template-compose .tile_banner_rotativo').length > 0) {
       this.removeObjFromTile();
       this.sortableTileItens();
     }
@@ -102,18 +108,18 @@ var portalBrasilCompor = {
 
     var objPortal = this;
 
-    $("#tile_banner_rotativo a").click(function (e) {
+    $(".tile_banner_rotativo a").click(function (e) {
       e.preventDefault();
     });
 
-    $("#tile_banner_rotativo .tile-remove-item").remove();
-    $("#tile_banner_rotativo").each(function () {
+    $(".tile_banner_rotativo .tile-remove-item").remove();
+    $(".tile_banner_rotativo").each(function () {
       var child = $(this).children('*[data-uid]');
       child.append("<i class='tile-remove-item'><span class='text'>remove</span></i>");
     });
 
-    $("#tile_banner_rotativo .tile-remove-item").unbind("click");
-    $("#tile_banner_rotativo .tile-remove-item").click(function (e) {
+    $(".tile_banner_rotativo .tile-remove-item").unbind("click");
+    $(".tile_banner_rotativo .tile-remove-item").click(function (e) {
       e.preventDefault();
       var obj = $(this).parent();
       var uid = obj.attr("data-uid");
@@ -148,7 +154,7 @@ var portalBrasilCompor = {
 
     var objPortal = this;
 
-    $("#tile_banner_rotativo").liveSortable({
+    $(".tile_banner_rotativo").liveSortable({
       stop: function (event, ui) {
         var uids = [];
 
@@ -177,7 +183,7 @@ var portalBrasilCompor = {
 };
 
 $(window).load(function () {
-  if ($('#tile_banner_rotativo').length > 0) {
+  if ($('.tile_banner_rotativo').length > 0) {
     portalBrasil.init();
     portalBrasilCompor.init();
     portalBrasil.resizeAlturaBannerRotativo();

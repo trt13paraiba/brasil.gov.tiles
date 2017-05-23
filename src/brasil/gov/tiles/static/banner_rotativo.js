@@ -1,4 +1,5 @@
 /*globals window */
+var brasil_gov_tiles_banner_rotativo_interval;
 var portalBrasil = {
   init: function () {
     this.tileBannerRotativo();
@@ -61,7 +62,8 @@ var portalBrasil = {
         portalBrasil.corrigeAlturaFaixa();
       };
       banners = $('.tile_banner_rotativo');
-      var INTERVAL = window.setInterval(function() {updateCarrossel(banners);}, 4000);
+      clearInterval(brasil_gov_tiles_banner_rotativo_interval);
+      brasil_gov_tiles_banner_rotativo_interval = window.setInterval(function() {updateCarrossel(banners);}, 4000);
     };
   },
   resizeAlturaBannerRotativo: function () {

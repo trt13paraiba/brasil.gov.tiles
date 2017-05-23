@@ -6,13 +6,13 @@ var portalBrasil = {
     this.alturaBannerRotativo();
   },
   // Tile Banner Rotativo
-  corrigeAlturaFaixa: function () {
+  corrigeAlturaFaixa: function (banner) {
     if ($(".template-compose .tile_banner_rotativo").length === 0) {
-      var imgBannerRotativo    = $('.tile_banner_rotativo .activeSlide .banner img'),
-        credito              = $('.tile_banner_rotativo .activeSlide .credito'),
-        botoesBannerRotativo = $('.tile_banner_rotativo .button-nav');
+      var imgBannerRotativo    = banner.find('.activeSlide .banner img'),
+        credito              = banner.find('.activeSlide .credito'),
+        botoesBannerRotativo = banner.find('.button-nav');
 
-      var sobrescrito = $('.tile_banner_rotativo').hasClass('chamada_sobrescrito');
+      var sobrescrito = banner.hasClass('chamada_sobrescrito');
       if (sobrescrito) {
         botoesBannerRotativo.css('top',
                                  imgBannerRotativo.height()         -
@@ -56,10 +56,9 @@ var portalBrasil = {
               activeSlide.removeClass('activeSlide');
               nextSlide.addClass('activeSlide');
             }
-
+          portalBrasil.corrigeAlturaFaixa($(banner));
           }
         });
-        portalBrasil.corrigeAlturaFaixa();
       };
       banners = $('.tile_banner_rotativo');
       clearInterval(brasil_gov_tiles_banner_rotativo_interval);

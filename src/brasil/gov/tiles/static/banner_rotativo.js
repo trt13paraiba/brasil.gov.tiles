@@ -67,29 +67,32 @@ var portalBrasil = {
   },
   resizeAlturaBannerRotativo: function () {
     if ($(".template-compose .tile_banner_rotativo").length === 0) {
-      var containerBannerRotativo = $('.tile_banner_rotativo'),
-        itemBannerRotativo = $('.tile_banner_rotativo li');
+      var banners = $('.tile_banner_rotativo');
+      $.each(banners, function(index, banner){
+        var containerBannerRotativo = $(banner),
+          itemBannerRotativo = containerBannerRotativo.find('li');
 
-      var sobrescrito = $('.tile_banner_rotativo').hasClass('chamada_sobrescrito');
+        var sobrescrito = containerBannerRotativo.hasClass('chamada_sobrescrito');
 
-      // ajusta altura de cada item do banner
-      var bannerMaior = 0;
+        // ajusta altura de cada item do banner
+        var bannerMaior = 0;
 
-      itemBannerRotativo.each(function () {
-        var altura = ($(this).find('img')      ? $(this).find('img').height()      : 0)  +
-                     ($(this).find('.credito') ? $(this).find('.credito').height() : 0)  +
-                     ($(this).find('.title')   ? $(this).find('.title').height()   : 0)  +
-                     ($(this).find('.descr')   ? $(this).find('.descr').height()   : 0);
-        if (sobrescrito) {
-          altura = altura - ($(this).find('.title')   ? $(this).find('.title').height()   : 0);
-        }
-        if (bannerMaior < altura) {
-          bannerMaior = altura;
-        }
+        itemBannerRotativo.each(function () {
+          var altura = (containerBannerRotativo.find('img')      ? containerBannerRotativo.find('img').height()      : 0)  +
+                      (containerBannerRotativo.find('.credito') ? containerBannerRotativo.find('.credito').height() : 0)  +
+                      (containerBannerRotativo.find('.title')   ? containerBannerRotativo.find('.title').height()   : 0)  +
+                      (containerBannerRotativo.find('.descr')   ? containerBannerRotativo.find('.descr').height()   : 0);
+          if (sobrescrito) {
+            altura = altura - (containerBannerRotativo.find('.title')   ? containerBannerRotativo.find('.title').height()   : 0);
+          }
+          if (bannerMaior < altura) {
+            bannerMaior = altura;
+          }
+        });
+        itemBannerRotativo.css('height', bannerMaior);
+        // ajusta altura do container do banner rotativo (22px = margin bottom default dos tiles)
+        containerBannerRotativo.animate({'height': bannerMaior + 22}, 100, portalBrasil.corrigeAlturaFaixa);
       });
-      itemBannerRotativo.css('height', bannerMaior);
-      // ajusta altura do container do banner rotativo (22px = margin bottom default dos tiles)
-      containerBannerRotativo.animate({'height': bannerMaior + 22}, 100, portalBrasil.corrigeAlturaFaixa);
     }
   },
   alturaBannerRotativo: function () {

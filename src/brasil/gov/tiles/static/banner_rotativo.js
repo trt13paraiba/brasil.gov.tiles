@@ -86,7 +86,7 @@ var portalBrasil = {
             bannerMaior = altura;
           }
         });
-        itemBannerRotativo.css('height', bannerMaior);
+        itemBannerRotativo.add('img', itemBannerRotativo).css('height', bannerMaior);
         // ajusta altura do container do banner rotativo (22px = margin bottom default dos tiles)
         containerBannerRotativo.animate({'height': bannerMaior + 22}, 100, function(){
           portalBrasil.corrigeAlturaFaixa(containerBannerRotativo);

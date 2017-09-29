@@ -1,4 +1,4 @@
-/*globals window */
+/* globals window */
 var brasil_gov_tiles_banner_rotativo_interval;
 var portalBrasil = {
   init: function () {
@@ -29,13 +29,10 @@ var portalBrasil = {
   },
   tileBannerRotativo: function () {
     if ($('.tile_banner_rotativo').length > 0) {
-      var link;
       $('.tile_banner_rotativo .button-nav, .orderTiles .button-nav').on('click focus mouseover', function (e) {
         e.preventDefault();
         $(this).closest('.tile_banner_rotativo').find('li').removeClass('activeSlide');
         $(this).closest('li').addClass('activeSlide');
-        portalBrasil.corrigeAlturaFaixa();
-        link = $(this);
       });
 
       var updateCarrossel = function (banners) {
@@ -55,8 +52,8 @@ var portalBrasil = {
 
               activeSlide.removeClass('activeSlide');
               nextSlide.addClass('activeSlide');
+              portalBrasil.corrigeAlturaFaixa($(banner));
             }
-          portalBrasil.corrigeAlturaFaixa($(banner));
           }
         });
       };
@@ -91,7 +88,9 @@ var portalBrasil = {
         });
         itemBannerRotativo.css('height', bannerMaior);
         // ajusta altura do container do banner rotativo (22px = margin bottom default dos tiles)
-        containerBannerRotativo.animate({'height': bannerMaior + 22}, 100, portalBrasil.corrigeAlturaFaixa);
+        containerBannerRotativo.animate({'height': bannerMaior + 22}, 100, function(){
+          portalBrasil.corrigeAlturaFaixa(containerBannerRotativo);
+        });
       });
     }
   },
